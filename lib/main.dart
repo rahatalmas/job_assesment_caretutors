@@ -1,3 +1,4 @@
+import 'package:care_tutor_note_taking_app/screens/login_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool login = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return login ? Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -71,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'new note',
         child: const Icon(Icons.add),
       ),
-    );
+    )
+    :
+    LoginScreen();
   }
 }
