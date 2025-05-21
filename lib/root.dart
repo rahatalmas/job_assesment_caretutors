@@ -2,7 +2,6 @@ import 'package:care_tutor_note_taking_app/constant.dart';
 import 'package:care_tutor_note_taking_app/screens/home.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key, required this.title});
@@ -27,7 +26,6 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    // Ensure the TabController length matches the number of tabs and views
     _tabController = TabController(length: _children.length, vsync: this);
   }
 
@@ -41,7 +39,6 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      // Assign the scaffold key
       backgroundColor: neutralWhite,
       appBar: AppBar(
         centerTitle: true,
@@ -74,20 +71,16 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
           controller: _tabController,
           dividerColor: Colors.transparent,
           indicator: BoxDecoration(
-            color: brandMinus1, // Green color for the selected tab
-            borderRadius: BorderRadius.circular(12), // Optional rounded corners
+            color: brandMinus1,
+            borderRadius: BorderRadius.circular(12),
           ),
           indicatorSize: TabBarIndicatorSize.tab,
-          // Ensures the indicator spans the full tab width
           labelPadding: EdgeInsets.zero,
-          // Removes padding around the label
           labelColor: brandPlus2,
-          // Text and icon color for the selected tab
           unselectedLabelColor: Colors.grey,
-          // Text and icon color for unselected tabs
           tabs: const [
             Tab(icon: Icon(Icons.home), text: "Home"),
-            Tab(icon: Icon(Icons.sailing), text: "Result"),
+            Tab(icon: Icon(Icons.person), text: "Profile"),
           ],
         ),
       ),
