@@ -1,10 +1,12 @@
 import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:care_tutor_note_taking_app/widgets/note.dart';
+import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key, required this.title});
@@ -24,7 +26,14 @@ class _NotesPageState extends State<NotesPage> {
       }
 
       if (_notesProvider.notes.isEmpty) {
-        return const Center(child: Text("No notes found."));
+        return Column(
+             children: [
+              Lottie.asset("assets/animation/notfound.json",height: 350,width: 350),
+              RowGap(),
+              Text("No Notes Found")
+             ]
+          
+          );
       }
      return ListView(
                 children: [
