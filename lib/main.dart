@@ -1,8 +1,12 @@
 import 'package:care_tutor_note_taking_app/root.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    KeyboardVisibilityProvider(
+      child: MyApp(),
+    ));
 }
 
 class MyApp extends StatelessWidget {

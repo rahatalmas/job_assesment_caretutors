@@ -1,4 +1,5 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
+import 'package:care_tutor_note_taking_app/screens/add_note.dart';
 import 'package:care_tutor_note_taking_app/screens/home.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
 import 'package:flutter/material.dart';
@@ -117,12 +118,16 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
               title: Text("Logout"),
               onTap: () async {
                 
-                  }   
+              }   
             ),
             ListTile(
               leading: Icon(Icons.check),
               title: Text("screen testing"),
               onTap: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AddNote()),
+                  );
               },
             ),
           ],
