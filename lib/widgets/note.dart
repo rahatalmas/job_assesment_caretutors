@@ -1,26 +1,25 @@
 import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
+import 'package:care_tutor_note_taking_app/screens/edit_note_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class Note extends StatelessWidget {
   final String index;
   final String title;
   final String content;
-  final DateTime createdAt;
+  final String createdAt;
 
   const Note({
-    Key? key,
+    super.key,
     required this.index,
     required this.title,
     required this.content,
     required this.createdAt,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = DateFormat.yMMMd().add_jm().format(createdAt);
-    final NotesProvider _notesProvider = Get.find<NotesProvider>();
+    final NotesProvider notesProvider = Get.find<NotesProvider>();
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -55,7 +54,7 @@ class Note extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Created at: $formattedDate',
+                      'Created at: $createdAt',
                       style: const TextStyle(
                         fontSize:  10,
                         color: Colors.grey,
@@ -84,14 +83,23 @@ class Note extends StatelessWidget {
                               title: const Text('Edit'),
                               onTap: () {
                                 Navigator.pop(context);
-                                print('Edit note: $index');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => EditNote(
+                                      id: index,
+                                      initialTitle: title,
+                                      initialContent: content,
+                                    ),
+                                  ),
+                                );
                               },
                             ),
                             ListTile(
                               leading: const Icon(Icons.delete),
                               title: const Text('Delete'),
                               onTap: () {
-                                _notesProvider.deleteNote(index);
+                                notesProvider.deleteNote(index);
                                 Navigator.pop(context);
                               },
                             ),

@@ -61,7 +61,7 @@ class _NotesPageState extends State<NotesPage> {
                         index: note['id'],
                         title: note['title'],
                         content: note['content'],
-                        createdAt: DateTime.now(),
+                        createdAt: note['timestamp'],
                       );},
                   )
                 ],
