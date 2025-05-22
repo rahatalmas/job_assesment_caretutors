@@ -37,7 +37,7 @@ class _AddNoteState extends State<AddNote> {
   );
 
  void _saveNote() async {
-  final NotesProvider _notesProvider = Get.put(NotesProvider());
+  final NotesProvider notesProvider = Get.find<NotesProvider>();
   final title = _titleController.text.trim();
   final content = _noteController.text.trim();
 
@@ -51,15 +51,13 @@ class _AddNoteState extends State<AddNote> {
     return;
   }
 
-  _notesProvider.addNote(title,content);
-
+  notesProvider.addNote(title,content);
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text("Note saved"),
       duration: Duration(milliseconds: 800),
     ),
   );
-
   Navigator.pop(context);
 }
 

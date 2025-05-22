@@ -1,4 +1,6 @@
+import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class Note extends StatelessWidget {
@@ -18,6 +20,7 @@ class Note extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formattedDate = DateFormat.yMMMd().add_jm().format(createdAt);
+    final NotesProvider _notesProvider = Get.find<NotesProvider>();
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -81,15 +84,15 @@ class Note extends StatelessWidget {
                               title: const Text('Edit'),
                               onTap: () {
                                 Navigator.pop(context);
-                                print('Edit note #$index');
+                                print('Edit note: $index');
                               },
                             ),
                             ListTile(
                               leading: const Icon(Icons.delete),
                               title: const Text('Delete'),
                               onTap: () {
+                                _notesProvider.deleteNote(index);
                                 Navigator.pop(context);
-                                print('Delete note #$index');
                               },
                             ),
                           ],

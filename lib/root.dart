@@ -1,6 +1,7 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
+import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:care_tutor_note_taking_app/screens/add_note.dart';
-import 'package:care_tutor_note_taking_app/screens/home.dart';
+import 'package:care_tutor_note_taking_app/screens/notes_screen.dart';
 import 'package:care_tutor_note_taking_app/screens/login_screen.dart';
 import 'package:care_tutor_note_taking_app/screens/profile_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
@@ -17,13 +18,11 @@ class Root extends StatefulWidget {
 
 class _Root extends State<Root> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
   final List<Widget> _children = [
-     MyHomePage(title: "My Note"),
+     NotesPage(title: "My Note"),
      ProfilePage()
   ];
 
-  // Global key to access the scaffold state
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

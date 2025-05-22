@@ -3,21 +3,30 @@ import 'package:care_tutor_note_taking_app/widgets/note.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class NotesPage extends StatefulWidget {
+  const NotesPage({super.key, required this.title});
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<NotesPage> createState() => _NotesPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _NotesPageState extends State<NotesPage> {
   bool login = true;
-  final NotesProvider _notesProvider = Get.put(NotesProvider());
+  final NotesProvider _notesProvider = Get.find<NotesProvider>();
   @override
   Widget build(BuildContext context) {
-    return  ListView(
+    return Obx(() {
+      if (_notesProvider.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      if (_notesProvider.notes.isEmpty) {
+        return const Center(child: Text("No notes found."));
+      }
+     return ListView(
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 8,horizontal: 0),
@@ -57,5 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               );
+    });
   }
 }
