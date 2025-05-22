@@ -1,4 +1,5 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
+import 'package:care_tutor_note_taking_app/controllers/note_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -35,26 +36,32 @@ class _AddNoteState extends State<AddNote> {
     filled: true,
   );
 
-  void _saveNote() {
-    if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Title or note cannot be empty"),
-          duration: Duration(seconds: 1),
-        ),
-      );
-      return;
-    }
+ void _saveNote() async {
+  final title = _titleController.text.trim();
+  final content = _noteController.text.trim();
 
+  if (title.isEmpty || content.isEmpty) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("Note saved"),
-        duration: Duration(milliseconds: 800),
+        content: Text("Title or note cannot be empty"),
+        duration: Duration(seconds: 1),
       ),
     );
-
-    Navigator.pop(context);
+    return;
   }
+
+  await addNote(title, content);
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text("Note saved"),
+      duration: Duration(milliseconds: 800),
+    ),
+  );
+
+  Navigator.pop(context);
+}
+
 
   @override
   void dispose() {

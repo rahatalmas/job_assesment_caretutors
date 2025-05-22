@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "220507344270",
+    "project_id": "noteapp-7f20c",
+    "storage_bucket": "noteapp-7f20c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220507344270:android:462bf92edad686d99568df",
+        "android_client_info": {
+          "package_name": "com.example.care_tutor_note_taking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG-wdYzI0haOGSjnjDjjTdNbDCBN8muYQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
