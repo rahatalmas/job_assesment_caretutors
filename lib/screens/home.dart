@@ -1,5 +1,9 @@
+import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:care_tutor_note_taking_app/widgets/note.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -10,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool login = true;
-
+  final NotesProvider _notesProvider = Get.put(NotesProvider());
   @override
   Widget build(BuildContext context) {
     return  ListView(
@@ -41,11 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 20,
+                    itemCount: _notesProvider.notes.length,
                     itemBuilder: (BuildContext context, int index) {
+                      var note = _notesProvider.notes[index];
                       return Note(
-                        index: 0,
-                        content: 'This is a sample note. You can update it with real content.',
+                        index: note['id'],
+                        title: note['title'],
+                        content: note['content'],
                         createdAt: DateTime.now(),
                       );},
                   )

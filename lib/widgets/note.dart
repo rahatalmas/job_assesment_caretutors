@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Note extends StatelessWidget {
-  final int index;
+  final String index;
+  final String title;
   final String content;
   final DateTime createdAt;
 
   const Note({
     Key? key,
     required this.index,
+    required this.title,
     required this.content,
     required this.createdAt,
   }) : super(key: key);
@@ -43,7 +45,7 @@ class Note extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Flutter - Job Assessment #${index + 1}",
+                      title,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

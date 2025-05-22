@@ -1,11 +1,11 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
-import 'package:care_tutor_note_taking_app/controllers/note_controller.dart';
+import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:get/get.dart';
 
 class AddNote extends StatefulWidget {
   const AddNote({super.key});
-
   @override
   State<AddNote> createState() => _AddNoteState();
 }
@@ -37,6 +37,7 @@ class _AddNoteState extends State<AddNote> {
   );
 
  void _saveNote() async {
+  final NotesProvider _notesProvider = Get.put(NotesProvider());
   final title = _titleController.text.trim();
   final content = _noteController.text.trim();
 
@@ -50,7 +51,7 @@ class _AddNoteState extends State<AddNote> {
     return;
   }
 
-  await addNote(title, content);
+  _notesProvider.addNote(title,content);
 
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
