@@ -9,9 +9,7 @@ import 'package:get/get.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key, required this.title});
-
   final String title;
-
   @override
   State<Root> createState() => _Root();
 }
@@ -134,3 +132,6 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
       );
   }
 }
+
+
+

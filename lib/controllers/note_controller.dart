@@ -29,7 +29,7 @@ class NotesController {
         //.orderBy('timestamp', descending: true)
         .snapshots()
         .map((snapshot) =>
-            snapshot.docs.map((doc) => NoteModel.fromDocument(doc)).toList());
+            snapshot.docs.map((doc) => NoteModel.fromJson(doc)).toList());
   }
 
   Future<void> updateNote(String docId, String title, String content) async {

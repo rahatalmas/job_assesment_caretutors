@@ -15,7 +15,7 @@ class UserController {
       final docSnapshot = await docRef.get();
       if (docSnapshot.exists) {
         print('User registered successfully.');
-        return UserModel.fromMap(docSnapshot.data()!, docRef.id);
+        return UserModel.fromJson(docSnapshot.data()!, docRef.id);
       }
       return null;
     } catch (e) {
@@ -35,7 +35,7 @@ class UserController {
       if (snapshot.docs.isNotEmpty) {
         final doc = snapshot.docs.first;
         print("success");
-        return UserModel.fromMap(doc.data(), doc.id);
+        return UserModel.fromJson(doc.data(), doc.id);
       } else {
         print('Invalid credentials');
         return null;

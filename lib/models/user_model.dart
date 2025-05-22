@@ -11,7 +11,7 @@ class UserModel {
     required this.password,
   });
 
-  factory UserModel.fromMap(Map<String, dynamic> data, String documentId) {
+  factory UserModel.fromJson(Map<String, dynamic> data, String documentId) {
     return UserModel(
       id: documentId,
       username: data['username'] ?? '',
@@ -20,7 +20,7 @@ class UserModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'username': username,
       'email': email,

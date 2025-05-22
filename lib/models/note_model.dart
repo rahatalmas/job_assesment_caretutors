@@ -15,7 +15,7 @@ class NoteModel {
     required this.timestamp,
   });
 
-  factory NoteModel.fromDocument(DocumentSnapshot doc) {
+  factory NoteModel.fromJson(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return NoteModel(
       id: doc.id,
@@ -28,7 +28,7 @@ class NoteModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'userId': userId,
       'title': title,
