@@ -1,19 +1,28 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
 import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 
-class AddNote extends StatefulWidget {
-  const AddNote({super.key});
+class EditNote extends StatefulWidget {
+  final String id;
+  final String initialTitle;
+  final String initialContent;
+
+  const EditNote({
+    super.key,
+    required this.id,
+    required this.initialTitle,
+    required this.initialContent,
+  });
+
   @override
-  State<AddNote> createState() => _AddNoteState();
+  State<EditNote> createState() => _EditNoteState();
 }
 
-class _AddNoteState extends State<AddNote> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _noteController = TextEditingController();
+class _EditNoteState extends State<EditNote> {
+  late TextEditingController _titleController;
+  late TextEditingController _noteController;
 
   final InputDecoration _textFieldDecoration = InputDecoration(
     labelText: "Title",
@@ -37,31 +46,37 @@ class _AddNoteState extends State<AddNote> {
     filled: true,
   );
 
- void _saveNote() async {
-  final NotesProvider notesProvider = Get.find<NotesProvider>();
-  final title = _titleController.text.trim();
-  final content = _noteController.text.trim();
-
-  if (title.isEmpty || content.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Title or note cannot be empty"),
-        duration: Duration(seconds: 1),
-      ),
-    );
-    return;
+  @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController(text: widget.initialTitle);
+    _noteController = TextEditingController(text: widget.initialContent);
   }
 
-  notesProvider.addNote(title,content);
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text("Note saved"),
-      duration: Duration(milliseconds: 800),
-    ),
-  );
-  Navigator.pop(context);
-}
+  void _saveNote() async {
+    final NotesProvider notesProvider = Get.find<NotesProvider>();
+    final title = _titleController.text.trim();
+    final content = _noteController.text.trim();
 
+    if (title.isEmpty || content.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Title or note cannot be empty"),
+          duration: Duration(seconds: 1),
+        ),
+      );
+      return;
+    }
+
+    await notesProvider.updateNote(widget.id, title, content);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Note updated"),
+        duration: Duration(milliseconds: 800),
+      ),
+    );
+    Navigator.pop(context);
+  }
 
   @override
   void dispose() {
@@ -80,29 +95,29 @@ class _AddNoteState extends State<AddNote> {
         backgroundColor: neutralWhite,
         elevation: 2,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           InkWell(
             onTap: _saveNote,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
-              margin: EdgeInsets.only(right: 12),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              margin: const EdgeInsets.only(right: 12),
               decoration: BoxDecoration(
                 color: colorPrimary,
-                borderRadius: BorderRadius.circular(8)
+                borderRadius: BorderRadius.circular(8),
               ),
               child: const Text(
-              "Save",
-              style: TextStyle(
-                  color: kColorPrimary, fontWeight: FontWeight.bold),
+                "Save",
+                style: TextStyle(
+                    color: kColorPrimary, fontWeight: FontWeight.bold),
+              ),
             ),
-            )
           ),
         ],
         title: const Text(
-          "Add Note",
+          "Edit Note",
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -126,9 +141,9 @@ class _AddNoteState extends State<AddNote> {
                 maxLines: null,
                 expands: true,
                 style: const TextStyle(fontSize: 16),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Write your notes here...",
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                   filled: true,
                   fillColor: Colors.white,

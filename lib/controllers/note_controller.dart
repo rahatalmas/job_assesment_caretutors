@@ -16,14 +16,38 @@ class NotesController {
     }
   }
 
-  Stream<List<Map<String, dynamic>>> getNotes() {
-    return firestore
-        .collection('notes')
-        .orderBy('timestamp', descending: true)
-        .snapshots()
-        .map((snapshot) =>
-            snapshot.docs.map((doc) => {'id': doc.id, ...doc.data()}).toList());
-  }
+Stream<List<Map<String, dynamic>>> getNotes() {
+  return firestore
+      .collection('notes')
+      .orderBy('timestamp', descending: true)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((doc) {
+            final data = doc.data();
+            final rawTimestamp = data['timestamp'];
+            String formattedTimestamp;
+
+            if (rawTimestamp is Timestamp) {
+              formattedTimestamp = rawTimestamp.toDate().toString();
+            } else if (rawTimestamp is String) {
+              try {
+                formattedTimestamp = DateTime.parse(rawTimestamp).toString();
+              } catch (e) {
+                formattedTimestamp = 'Invalid date';
+              }
+            } else {
+              formattedTimestamp = 'No timestamp';
+            }
+
+            return {
+              'id': doc.id,
+              'title': data['title'],
+              'content': data['content'],
+              'timestamp': formattedTimestamp,
+            };
+          }).toList());
+}
+
+
 
   Future<void> updateNote(String docId, String title, String content) async {
     try {
