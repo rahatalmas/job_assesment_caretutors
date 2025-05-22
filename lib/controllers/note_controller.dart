@@ -1,57 +1,37 @@
+import 'package:care_tutor_note_taking_app/models/note_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class NotesController {
+  final CollectionReference notesRef = firestore.collection('notes');
+
   Future<void> addNote(String title, String content) async {
     try {
-      await firestore.collection('notes').add({
+      final note = {
         'title': title,
         'content': content,
         'timestamp': FieldValue.serverTimestamp(),
-      });
+      };
+
+      await notesRef.add(note);
       print('Note added successfully.');
     } catch (e) {
       print('Error adding note: $e');
     }
   }
 
-Stream<List<Map<String, dynamic>>> getNotes() {
-  return firestore
-      .collection('notes')
-      .orderBy('timestamp', descending: true)
-      .snapshots()
-      .map((snapshot) => snapshot.docs.map((doc) {
-            final data = doc.data();
-            final rawTimestamp = data['timestamp'];
-            String formattedTimestamp;
-
-            if (rawTimestamp is Timestamp) {
-              formattedTimestamp = rawTimestamp.toDate().toString();
-            } else if (rawTimestamp is String) {
-              try {
-                formattedTimestamp = DateTime.parse(rawTimestamp).toString();
-              } catch (e) {
-                formattedTimestamp = 'Invalid date';
-              }
-            } else {
-              formattedTimestamp = 'No timestamp';
-            }
-
-            return {
-              'id': doc.id,
-              'title': data['title'],
-              'content': data['content'],
-              'timestamp': formattedTimestamp,
-            };
-          }).toList());
-}
-
-
+  Stream<List<NoteModel>> getNotes() {
+    return notesRef
+        .orderBy('timestamp', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => NoteModel.fromDocument(doc)).toList());
+  }
 
   Future<void> updateNote(String docId, String title, String content) async {
     try {
-      await firestore.collection('notes').doc(docId).update({
+      await notesRef.doc(docId).update({
         'title': title,
         'content': content,
         'timestamp': FieldValue.serverTimestamp(),
@@ -64,7 +44,7 @@ Stream<List<Map<String, dynamic>>> getNotes() {
 
   Future<void> deleteNote(String docId) async {
     try {
-      await firestore.collection('notes').doc(docId).delete();
+      await notesRef.doc(docId).delete();
       print('Note deleted successfully.');
     } catch (e) {
       print('Error deleting note: $e');

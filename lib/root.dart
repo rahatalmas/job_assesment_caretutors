@@ -1,5 +1,4 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
-import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:care_tutor_note_taking_app/screens/add_note.dart';
 import 'package:care_tutor_note_taking_app/screens/notes_screen.dart';
 import 'package:care_tutor_note_taking_app/screens/login_screen.dart';

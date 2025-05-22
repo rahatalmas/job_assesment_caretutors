@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:intl/intl.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key, required this.title});
@@ -57,11 +58,14 @@ class _NotesPageState extends State<NotesPage> {
                     itemCount: _notesProvider.notes.length,
                     itemBuilder: (BuildContext context, int index) {
                       var note = _notesProvider.notes[index];
+                      final String formattedTime = note.timestamp != null
+                      ? DateFormat('yyyy-MM-dd HH:mm').format(note.timestamp!)
+                      : 'No date';
                       return Note(
-                        index: note['id'],
-                        title: note['title'],
-                        content: note['content'],
-                        createdAt: note['timestamp'],
+                        index: note.id,
+                        title: note.title,
+                        content: note.content,
+                        createdAt: formattedTime,
                       );},
                   )
                 ],
