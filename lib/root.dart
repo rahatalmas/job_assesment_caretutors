@@ -2,6 +2,7 @@ import 'package:care_tutor_note_taking_app/constant.dart';
 import 'package:care_tutor_note_taking_app/screens/home.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key, required this.title});
@@ -52,7 +53,7 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
           },
         ),
         title: Text(
-          "Home",
+          "My Notes",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 25, color: appTextPrimary),
         ),
@@ -97,11 +98,10 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: kColorPrimary,
                 child: ClipOval(
-                  child: Image.asset(
-                    'assets/animation/login_header.json',
-                    //width: 50,
-                    //height: 50,
-                    fit: BoxFit.cover,
+                  child: SizedBox(
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: Image.asset("assets/image/dp.jpg",fit: BoxFit.cover,),
                   ),
                 ),
               ),
@@ -113,34 +113,16 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
               },
             ),
             ListTile(
-              leading: Icon(Icons.article),
-              title: Text("All Exams"),
-              
-            ),
-            ListTile(
-              leading: Icon(Icons.list),
-              title: Text("All Results"),
-              onTap: () {
-                
-              },
-            ),
-            ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text("Logout"),
               onTap: () async {
                 
-                  }
-                
+                  }   
             ),
             ListTile(
-              leading: Icon(Icons.question_answer),
-              title: Text("TestPage"),
+              leading: Icon(Icons.check),
+              title: Text("screen testing"),
               onTap: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context)=>PaperProcessingResult(success: [], errors: []))
-                // );
               },
             ),
           ],

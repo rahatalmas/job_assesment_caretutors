@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
          // backgroundColor: Color(0xFF2DA44E),
-         backgroundColor: Colors.lightBlue
+         // backgroundColor: Colors.lightBlue
         ),
       ),
       home: const Root(title: "My Note"),
