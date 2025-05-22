@@ -33,6 +33,7 @@ class UserProvider extends GetxController {
       if (user != null) {
         currentUser.value = user;
         final NotesProvider notesProvider = Get.find<NotesProvider>();
+        print("USER ID ${user.id}");
         notesProvider.fetchNotes(user.id);
         return true;
       } else {

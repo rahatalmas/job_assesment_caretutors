@@ -131,26 +131,36 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             InkWell(
               onTap: () async {
-                final UserProvider userProvider = Get.find<UserProvider>();
-                bool success = await userProvider.login(_user.text.trim(), _pass.text.trim());
-
-                if (success) {
-                  Get.snackbar(
-                    "Success",
-                    "Login successful",
-                    backgroundColor: Colors.green,
-                    colorText: Colors.white,
-                  );
-                  Get.back(); // Or Get.off(HomeScreen()) if you have a home page
-                } else {
-                  Get.snackbar(
-                    "Login Failed",
-                    "Invalid email or password",
-                    backgroundColor: Colors.red,
-                    colorText: Colors.white,
-                  );
+                  try {
+                    final UserProvider userProvider = Get.find<UserProvider>();
+                    bool success = await userProvider.login(_user.text.trim(), _pass.text.trim());
+                    print(success);
+                    if (success) {
+                      Get.snackbar(
+                        "Success",
+                        "Login successful",
+                        backgroundColor: Colors.green,
+                        colorText: Colors.white,
+                      );
+                      Get.back();
+                    } else {
+                      Get.snackbar(
+                        "Login Failed",
+                        "Invalid email or password",
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
+                    }
+                  } catch (e) {
+                    Get.snackbar(
+                      "Error",
+                      "Something went wrong: $e",
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                  }
                 }
-              },
+              ,
               child: Container(
                 height: 56,
                 width: double.maxFinite,

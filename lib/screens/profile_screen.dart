@@ -53,6 +53,11 @@ class ProfilePage extends StatelessWidget {
             ),
             RowGap(),
             RowGap(),
+            Row(children: [
+              Icon(Icons.info),
+              Text("Developer Info")
+            ],),
+            RowGap(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -103,13 +108,14 @@ class ProfilePage extends StatelessWidget {
                 profileRow('Twitter', '@rahatalmas'),
               ],
             ),
+          
           ],
         );
   }
 }
   Widget profileRow(String platform, String handle) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
           Text('$platform: ',

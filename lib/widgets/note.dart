@@ -22,7 +22,7 @@ class Note extends StatelessWidget {
     final NotesProvider notesProvider = Get.find<NotesProvider>();
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: 4,horizontal: 4),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -30,8 +30,9 @@ class Note extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
-            blurRadius: 2,
-            offset: const Offset(0, 2),
+            blurRadius: 1,
+            spreadRadius: 1,
+            offset: const Offset(0, 0,),
           ),
         ],
       ),
@@ -49,14 +50,14 @@ class Note extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       'Created at: $createdAt',
                       style: const TextStyle(
-                        fontSize:  10,
+                        fontSize:  12,
                         color: Colors.grey,
                       ),
                     ),
@@ -117,7 +118,7 @@ class Note extends StatelessWidget {
             content,
             style: const TextStyle(
               color: Colors.black87,
-              fontSize: 14,
+              fontSize: 16,
             ),
           ),
         ],

@@ -1,9 +1,7 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
-import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
 import 'package:care_tutor_note_taking_app/screens/add_note.dart';
 import 'package:care_tutor_note_taking_app/screens/notes_screen.dart';
-import 'package:care_tutor_note_taking_app/screens/login_screen.dart';
 import 'package:care_tutor_note_taking_app/screens/profile_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +40,6 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final UserProvider userProvider = Get.find<UserProvider>();
-    final NotesProvider notesProvider = Get.find<NotesProvider>();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: neutralWhite,
@@ -98,8 +95,8 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
               decoration: BoxDecoration(
                 color: colorPrimary,
               ),
-              accountName: Text('Almas'),
-              accountEmail: Text('Total Notes: ${notesProvider.notes.length}'),
+              accountName: Text(userProvider.currentUser.value!.username),
+              accountEmail: Text(userProvider.currentUser.value!.email),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: kColorPrimary,
                 child: ClipOval(
@@ -117,16 +114,6 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
               onTap: () async {
                 userProvider.logout();
               }   
-            ),
-            ListTile(
-              leading: Icon(Icons.check),
-              title: Text("screen testing"),
-              onTap: () {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  );
-              },
             ),
           ],
         ),
