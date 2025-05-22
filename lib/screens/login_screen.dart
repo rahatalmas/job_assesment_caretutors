@@ -130,58 +130,49 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             InkWell(
-              onTap: () async {
-                  try {
-                    final UserProvider userProvider = Get.find<UserProvider>();
-                    bool success = await userProvider.login(_user.text.trim(), _pass.text.trim());
-                    print(success);
-                    if (success) {
-                      Get.snackbar(
-                        "Success",
-                        "Login successful",
-                        backgroundColor: Colors.green,
-                        colorText: Colors.white,
-                      );
-                      Get.back();
-                    } else {
-                      Get.snackbar(
-                        "Login Failed",
-                        "Invalid email or password",
-                        backgroundColor: Colors.red,
-                        colorText: Colors.white,
-                      );
-                    }
-                  } catch (e) {
-                    Get.snackbar(
-                      "Error",
-                      "Something went wrong: $e",
-                      backgroundColor: Colors.red,
-                      colorText: Colors.white,
-                    );
-                  }
-                }
-              ,
-              child: Container(
-                height: 56,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 22, 91, 167),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontWeight: FontWeight.bold,
+  onTap: () async {
+    try {
+      final UserProvider userProvider = Get.find<UserProvider>();
+      bool success = await userProvider.login(_user.text.trim(), _pass.text.trim());
+      if (success) {
+        Get.snackbar("Success", "Login successful",
+            backgroundColor: Colors.green, colorText: Colors.white);
+        Get.back();
+      } else {
+        Get.snackbar("Login Failed", "Invalid email or password",
+            backgroundColor: Colors.red, colorText: Colors.white);
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Something went wrong: $e",
+          backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  },
+  child: Container(
+    height: 56,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: const Color.fromARGB(255, 22, 91, 167),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Obx(() {
+            final userProvider = Get.find<UserProvider>();
+            return userProvider.isLoading.value
+                ? const Center(child: CircularProgressIndicator(color: Colors.white))
+                : const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+                  );
+          }),
+        ),
+      ),
+      ],
         ),
       ),
     );

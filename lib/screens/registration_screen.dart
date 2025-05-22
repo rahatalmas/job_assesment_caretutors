@@ -126,26 +126,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             InkWell(
               onTap: _handleRegister,
-              child: Container(
+              child:  Container(
                 height: 56,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 22, 91, 167),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Center(
-                  child: Text(
-                    "Register",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                child: Obx(() {
+                  final userProvider = Get.find<UserProvider>();
+                  return userProvider.isLoading.value
+                      ? const Center(child: CircularProgressIndicator(color: Colors.white))
+                      : const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Register",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                }),
               ),
             ),
-          ],
+
+            ],
         ),
       ),
     );
