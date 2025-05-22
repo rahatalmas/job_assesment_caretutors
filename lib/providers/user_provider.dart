@@ -47,6 +47,8 @@ class UserProvider extends GetxController {
   }
 
   void logout() {
+    NotesProvider noteProvider = Get.find<NotesProvider>();
+    noteProvider.notes.clear();
     currentUser.value = null;
   }
 }
