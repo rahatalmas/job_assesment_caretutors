@@ -1,11 +1,11 @@
 import 'package:care_tutor_note_taking_app/controllers/note_controller.dart';
+import 'package:care_tutor_note_taking_app/models/note_model.dart';
 import 'package:get/get.dart';
-
 
 class NotesProvider extends GetxController {
   final NotesController _controller = NotesController();
 
-  var notes = <Map<String, dynamic>>[].obs;
+  var notes = <NoteModel>[].obs;
   var isLoading = true.obs;
 
   void fetchNotes() {

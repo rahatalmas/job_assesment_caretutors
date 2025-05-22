@@ -1,5 +1,9 @@
+import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
+import 'package:care_tutor_note_taking_app/screens/registration_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,12 +14,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController _userCtrl, _passCtrl;
+  late TextEditingController _user, _pass;
 
   @override
   void initState() {
-    _userCtrl = TextEditingController();
-    _passCtrl = TextEditingController();
+    _user = TextEditingController();
+    _pass = TextEditingController();
 
     super.initState();
   }
@@ -36,20 +40,21 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                Lottie.asset("assets/animation/login_header.json",width: 120,height: 120),
-                Text("My Notes",style: TextStyle(
+                  Text("Welcome Back",style: TextStyle(
                   fontSize: 28,fontWeight: FontWeight.bold
-                ),)
+                ),),
+                Lottie.asset("assets/animation/login_header.json",width: 150,height: 150),
+              
               ],)
             ),
             RowGap(),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: ListView(
                 shrinkWrap: true,
                 children: [
                   TextField(
-                    controller: _userCtrl,
+                    controller: _user,
                     decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -64,24 +69,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             Radius.circular(8.0),
                           ),
                           borderSide:
-                              BorderSide(width: 3, color: Colors.yellow)),
+                              BorderSide(width: 2, color: Colors.yellow)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ),
                           borderSide:
-                              BorderSide(width: 3, color: const Color.fromARGB(255, 32, 91, 167))),
+                              BorderSide(width: 2, color: const Color.fromARGB(255, 22, 91, 167))),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ),
                           borderSide:
-                              BorderSide(width: 3, color: const Color.fromARGB(255, 32, 91, 167))),
+                              BorderSide(width: 2, color: const Color.fromARGB(255, 22, 91, 167))),
                     ),
                   ),
                   SizedBox(height: 16),
                   TextField(
-                    controller: _passCtrl,
+                    controller: _pass,
                     obscureText: true,
                     decoration: InputDecoration(
                       contentPadding:
@@ -95,33 +100,52 @@ class _LoginScreenState extends State<LoginScreen> {
                             Radius.circular(8.0),
                           ),
                           borderSide:
-                              BorderSide(width: 3, color:const Color.fromARGB(255, 32, 91, 167))),
+                              BorderSide(width: 2, color:const Color.fromARGB(255, 22, 91, 167))),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ),
                           borderSide:
-                              BorderSide(width: 3, color:const Color.fromARGB(255, 32, 91, 167))),
+                              BorderSide(width: 2, color:const Color.fromARGB(255, 22, 91, 167))),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
                           ),
                           borderSide:
-                              BorderSide(width: 3, color: const Color.fromARGB(255, 32, 91, 167))),
+                              BorderSide(width: 2, color: const Color.fromARGB(255, 22, 91, 167))),
                     ),
                   ),
                 ],
               ),
             ),
+            Padding(
+              padding: EdgeInsets.all(12),
+            child:Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Don't have accout?",style: TextStyle(fontSize: 16),),
+                InkWell(
+                  child:Text("Register",style: TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold),),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return RegisterScreen();
+                    }));
+                  },
+                  )
+              ],
+            ),
+            ),
             InkWell(
               onTap: () async {
-                print("login btn");
+                final UserProvider userProvider = Get.find<UserProvider>();
+                userProvider.login(_user.text,_pass.text);
               },
               child: Container(
                 height: 56,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 32, 91, 167),
+                  color: Color.fromARGB(255, 22, 91, 167),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Align(
@@ -130,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Login",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color.fromARGB(255, 255, 249, 233),
+                      color: Color.fromARGB(255, 255, 255, 255),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -145,8 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _userCtrl.dispose();
-    _passCtrl.dispose();
+    _user.dispose();
+    _pass.dispose();
     super.dispose();
   }
 }

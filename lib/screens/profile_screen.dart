@@ -1,6 +1,10 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
+import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
+import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
 import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/get_core.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -11,10 +15,8 @@ class ProfilePage extends StatelessWidget {
       backgroundImage: AssetImage('assets/image/dp.jpg'),
     );
 
-    final userName = Text('Rahat Almas', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
-    final email = Text('bmrahatalmas@gmail.com', style: TextStyle(color: Colors.grey[700]));
-    final totalNotes = Text('Total Notes: 20', style: TextStyle(color: Colors.grey[600]));
-
+    final UserProvider userProvider = Get.find<UserProvider>();
+    final NotesProvider noteProvider = Get.find<NotesProvider>();
     return ListView(
           children: [
             Row(
@@ -26,11 +28,11 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      userName,
+                      Text(userProvider.currentUser.value!.username),
                       SizedBox(height: 4),
-                      email,
+                      Text(userProvider.currentUser.value!.email),
                       SizedBox(height: 4),
-                      totalNotes,
+                      Text(noteProvider.notes.length.toString()),
                     ],
                   ),
                 )

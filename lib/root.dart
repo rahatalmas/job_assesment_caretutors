@@ -1,10 +1,12 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
+import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
 import 'package:care_tutor_note_taking_app/screens/add_note.dart';
 import 'package:care_tutor_note_taking_app/screens/notes_screen.dart';
 import 'package:care_tutor_note_taking_app/screens/login_screen.dart';
 import 'package:care_tutor_note_taking_app/screens/profile_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key, required this.title});
@@ -38,6 +40,7 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final UserProvider userProvider = Get.find<UserProvider>();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: neutralWhite,
@@ -116,7 +119,7 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
               leading: Icon(Icons.exit_to_app),
               title: Text("Logout"),
               onTap: () async {
-                
+                userProvider.logout();
               }   
             ),
             ListTile(
