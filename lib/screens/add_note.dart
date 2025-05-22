@@ -80,7 +80,12 @@ class _AddNoteState extends State<AddNote> {
           InkWell(
             onTap: _saveNote,
             child: Container(
-              color: colorPrimary,
+              padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+              margin: EdgeInsets.only(right: 12),
+              decoration: BoxDecoration(
+                color: colorPrimary,
+                borderRadius: BorderRadius.circular(8)
+              ),
               child: const Text(
               "Save",
               style: TextStyle(

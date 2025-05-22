@@ -10,7 +10,7 @@ class ScreenContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:EdgeInsets.symmetric(vertical: 8,horizontal: 8),
+      padding:EdgeInsets.symmetric(vertical: 8,horizontal: 16),
       child: child,
     );
   }

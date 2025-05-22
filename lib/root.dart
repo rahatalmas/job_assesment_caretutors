@@ -1,9 +1,9 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
 import 'package:care_tutor_note_taking_app/screens/add_note.dart';
 import 'package:care_tutor_note_taking_app/screens/home.dart';
+import 'package:care_tutor_note_taking_app/screens/profile_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key, required this.title});
@@ -19,7 +19,7 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
 
   final List<Widget> _children = [
      MyHomePage(title: "My Note"),
-     Text("hello")
+     ProfilePage()
   ];
 
   // Global key to access the scaffold state
@@ -136,7 +136,9 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorPrimary,
               onPressed: () {
-                print("New note creation");
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context)=> const AddNote()));
               },
               tooltip: 'New Note',
               child: const Icon(
