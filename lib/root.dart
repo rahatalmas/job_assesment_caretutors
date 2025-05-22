@@ -1,4 +1,5 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
+import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
 import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
 import 'package:care_tutor_note_taking_app/screens/add_note.dart';
 import 'package:care_tutor_note_taking_app/screens/notes_screen.dart';
@@ -41,6 +42,7 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final UserProvider userProvider = Get.find<UserProvider>();
+    final NotesProvider notesProvider = Get.find<NotesProvider>();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: neutralWhite,
@@ -97,7 +99,7 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
                 color: colorPrimary,
               ),
               accountName: Text('Almas'),
-              accountEmail: Text('Total Notes: 10'),
+              accountEmail: Text('Total Notes: ${notesProvider.notes.length}'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: kColorPrimary,
                 child: ClipOval(
@@ -108,12 +110,6 @@ class _Root extends State<Root> with SingleTickerProviderStateMixin {
                   ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Profile"),
-              onTap: () {
-              },
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
