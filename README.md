@@ -7,9 +7,11 @@ A Flutter project.
 Firebase is used for database.
 some dummy users:
 
+user1
     email: test@gmail.com
     password: 123456
 
+user2
     email: user@gmail.com
     password: 123456
 
