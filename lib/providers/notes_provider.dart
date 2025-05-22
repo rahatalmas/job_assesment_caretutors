@@ -8,10 +8,9 @@ class NotesProvider extends GetxController {
   var notes = <NoteModel>[].obs;
   var isLoading = true.obs;
 
-  void fetchNotes() {
+  void fetchNotes(String userId) {
     isLoading.value = true;
-
-    _controller.getNotes().listen((notesList) {
+    _controller.getNotes(userId).listen((notesList) {
       notes.value = notesList;
       isLoading.value = false;
     }, onError: (e) {
@@ -20,9 +19,9 @@ class NotesProvider extends GetxController {
     });
   }
 
-  Future<void> addNote(String title, String content) async {
+  Future<void> addNote(String userId, String title, String content) async {
     isLoading.value = true;
-    await _controller.addNote(title, content);
+    await _controller.addNote(userId, title, content);
     isLoading.value = false;
   }
 
@@ -36,11 +35,5 @@ class NotesProvider extends GetxController {
     isLoading.value = true;
     await _controller.deleteNote(docId);
     isLoading.value = false;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    fetchNotes();
   }
 }

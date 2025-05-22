@@ -13,9 +13,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Get.put(NotesProvider());
   Get.put(UserProvider());
-
+  Get.put(NotesProvider());
   runApp(
     KeyboardVisibilityProvider(
       child: const MyApp(),

@@ -4,16 +4,23 @@ import '../models/user_model.dart';
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class UserController {
-  Future<void> registerUser(String username, String email, String password) async {
+  Future<UserModel?> registerUser(String username, String email, String password) async {
     try {
-      await firestore.collection('users').add({
+      final docRef = await firestore.collection('users').add({
         'username': username,
         'email': email,
         'password': password,
       });
-      print('User registered successfully.');
+
+      final docSnapshot = await docRef.get();
+      if (docSnapshot.exists) {
+        print('User registered successfully.');
+        return UserModel.fromMap(docSnapshot.data()!, docRef.id);
+      }
+      return null;
     } catch (e) {
       print('Registration error: $e');
+      return null;
     }
   }
 

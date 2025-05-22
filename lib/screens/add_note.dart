@@ -1,6 +1,6 @@
 import 'package:care_tutor_note_taking_app/constant.dart';
 import 'package:care_tutor_note_taking_app/providers/notes_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -36,6 +36,7 @@ class _AddNoteState extends State<AddNote> {
     fillColor: Colors.white,
     filled: true,
   );
+  final UserProvider userProvider = Get.find<UserProvider>();
 
  void _saveNote() async {
   final NotesProvider notesProvider = Get.find<NotesProvider>();
@@ -52,7 +53,7 @@ class _AddNoteState extends State<AddNote> {
     return;
   }
 
-  notesProvider.addNote(title,content);
+  notesProvider.addNote(userProvider.currentUser.value!.id,title,content);
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text("Note saved"),

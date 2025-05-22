@@ -4,7 +4,6 @@ import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
 import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -99,9 +98,9 @@ class ProfilePage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                profileRow('LinkedIn', '@almaslink'),
+                profileRow('LinkedIn', '@rahatalmas'),
                 profileRow('GitHub', '@rahatalmas'),
-                profileRow('Twitter', '@almastweet'),
+                profileRow('Twitter', '@rahatalmas'),
               ],
             ),
           ],

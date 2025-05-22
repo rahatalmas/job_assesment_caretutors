@@ -2,8 +2,7 @@ import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
 import 'package:care_tutor_note_taking_app/screens/registration_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     _user = TextEditingController();
     _pass = TextEditingController();
-
     super.initState();
   }
 
@@ -40,12 +38,17 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Welcome Back",style: TextStyle(
-                  fontSize: 28,fontWeight: FontWeight.bold
-                ),),
-                Lottie.asset("assets/animation/login_header.json",width: 150,height: 150),
-              
-              ],)
+                  const Text(
+                    "Welcome Back",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  Lottie.asset(
+                    "assets/animation/login_header.json",
+                    width: 150,
+                    height: 150,
+                  ),
+                ],
+              ),
             ),
             RowGap(),
             Expanded(
@@ -55,97 +58,104 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   TextField(
                     controller: _user,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      fillColor: Colors.black,
-                      label: Text(
-                        "Username",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      hintStyle: TextStyle(color: Colors.black),
+                      label: Text("Email", style: TextStyle(fontSize: 18)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                          borderSide:
-                              BorderSide(width: 2, color: Colors.yellow)),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                      ),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                          borderSide:
-                              BorderSide(width: 2, color: const Color.fromARGB(255, 22, 91, 167))),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide:
+                            BorderSide(width: 2, color: Color.fromARGB(255, 22, 91, 167)),
+                      ),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                          borderSide:
-                              BorderSide(width: 2, color: const Color.fromARGB(255, 22, 91, 167))),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide:
+                            BorderSide(width: 2, color: Color.fromARGB(255, 22, 91, 167)),
+                      ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextField(
                     controller: _pass,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      label: Text(
-                        "Password",
-                        style: TextStyle(fontSize: 18),
-                      ),
+                      label: Text("Password", style: TextStyle(fontSize: 18)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                          borderSide:
-                              BorderSide(width: 2, color:const Color.fromARGB(255, 22, 91, 167))),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                      ),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                          borderSide:
-                              BorderSide(width: 2, color:const Color.fromARGB(255, 22, 91, 167))),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide:
+                            BorderSide(width: 2, color: Color.fromARGB(255, 22, 91, 167)),
+                      ),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                          borderSide:
-                              BorderSide(width: 2, color: const Color.fromARGB(255, 22, 91, 167))),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        borderSide:
+                            BorderSide(width: 2, color: Color.fromARGB(255, 22, 91, 167)),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(12),
-            child:Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Don't have accout?",style: TextStyle(fontSize: 16),),
-                InkWell(
-                  child:Text("Register",style: TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold),),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return RegisterScreen();
-                    }));
-                  },
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don't have an account?", style: TextStyle(fontSize: 16)),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return const RegisterScreen();
+                      }));
+                    },
+                    child: const Text(
+                      " Register",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   )
-              ],
-            ),
+                ],
+              ),
             ),
             InkWell(
               onTap: () async {
                 final UserProvider userProvider = Get.find<UserProvider>();
-                userProvider.login(_user.text,_pass.text);
+                bool success = await userProvider.login(_user.text.trim(), _pass.text.trim());
+
+                if (success) {
+                  Get.snackbar(
+                    "Success",
+                    "Login successful",
+                    backgroundColor: Colors.green,
+                    colorText: Colors.white,
+                  );
+                  Get.back(); // Or Get.off(HomeScreen()) if you have a home page
+                } else {
+                  Get.snackbar(
+                    "Login Failed",
+                    "Invalid email or password",
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
+                }
               },
               child: Container(
                 height: 56,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 22, 91, 167),
+                  color: const Color.fromARGB(255, 22, 91, 167),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Align(
@@ -160,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

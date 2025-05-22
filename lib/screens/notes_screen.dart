@@ -15,7 +15,6 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  bool login = true;
   final NotesProvider _notesProvider = Get.find<NotesProvider>();
   @override
   Widget build(BuildContext context) {

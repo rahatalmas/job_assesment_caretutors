@@ -6,9 +6,10 @@ final FirebaseFirestore firestore = FirebaseFirestore.instance;
 class NotesController {
   final CollectionReference notesRef = firestore.collection('notes');
 
-  Future<void> addNote(String title, String content) async {
+  Future<void> addNote(String userId, String title, String content) async {
     try {
       final note = {
+        'userId': userId,
         'title': title,
         'content': content,
         'timestamp': FieldValue.serverTimestamp(),
@@ -21,8 +22,9 @@ class NotesController {
     }
   }
 
-  Stream<List<NoteModel>> getNotes() {
+  Stream<List<NoteModel>> getNotes(String userId) {
     return notesRef
+        .where('userId', isEqualTo: userId)
         .orderBy('timestamp', descending: true)
         .snapshots()
         .map((snapshot) =>

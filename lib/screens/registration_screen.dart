@@ -1,9 +1,7 @@
 import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
-import 'package:care_tutor_note_taking_app/screens/login_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:lottie/lottie.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -32,14 +30,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
+  bool isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegex.hasMatch(email);
+  }
+
+  Future<void> _handleRegister() async {
+    final username = _username.text.trim();
+    final email = _email.text.trim();
+    final password = _password.text;
+    print(username);
+    if (username.length < 3) {
+      Get.snackbar("Invalid Username", "Username must be at least 3 characters long",
+          backgroundColor: Colors.redAccent, colorText: Colors.white);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      Get.snackbar("Invalid Email", "Please enter a valid email address",
+          backgroundColor: Colors.redAccent, colorText: Colors.white);
+      return;
+    }
+
+    if (password.length < 6) {
+      Get.snackbar("Invalid Password", "Password must be at least 6 characters long",
+          backgroundColor: Colors.redAccent, colorText: Colors.white);
+      return;
+    }
+
+    final UserProvider userProvider = Get.find<UserProvider>();
+    final success = await userProvider.register(username, email, password);
+
+    if (success) {
+      Get.snackbar("Registration Successful", "Welcome $username!",
+          backgroundColor: Colors.green, colorText: Colors.white);
+      Navigator.pop(context);
+    } else {
+      Get.snackbar("Registration Failed", "Something went wrong. Try again.",
+          backgroundColor: Colors.redAccent, colorText: Colors.white);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black54,
       body: Container(
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
-        ),
+        decoration: const BoxDecoration(color: Colors.white),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           children: [
@@ -52,62 +89,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     "Start Taking Notes",
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                  Lottie.asset("assets/animation/login_header.json",height: 150,width: 150)
+                  Lottie.asset("assets/animation/login_header.json", height: 150, width: 150),
                 ],
               ),
             ),
-            RowGap(),
+            const RowGap(),
             Expanded(
               flex: 1,
               child: ListView(
                 children: [
-                  _buildInputField(
-                    controller: _username,
-                    label: "Username",
-                  ),
+                  _buildInputField(controller: _username, label: "Username"),
                   const SizedBox(height: 16),
-                  _buildInputField(
-                    controller: _email,
-                    label: "Email",
-                  ),
+                  _buildInputField(controller: _email, label: "Email"),
                   const SizedBox(height: 16),
-                  _buildInputField(
-                    controller: _password,
-                    label: "Password",
-                    obscureText: true,
+                  _buildInputField(controller: _password, label: "Password", obscureText: true),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Already have an account?", style: TextStyle(fontSize: 16)),
+                  InkWell(
+                    onTap: () {
+                       Navigator.pop(context);
+                    },
+                    child: const Text(
+                      " Login",
+                      style: TextStyle(color: Colors.green, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
             ),
-
-Padding(
-              padding: EdgeInsets.all(12),
-            child:Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Already Have Account?",style: TextStyle(fontSize: 16),),
-                InkWell(
-                  child:Text("Login",style: TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold),),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return LoginScreen();
-                    }));
-                  },
-                  )
-              ],
-            ),
-            ),
-            
-
             InkWell(
-              onTap: () async {
-                final UserProvider userProvider = Get.find<UserProvider>();
-                userProvider.register(_username.text, _email.text, _password.text);
-              },
+              onTap: _handleRegister,
               child: Container(
                 height: 56,
-                width: double.maxFinite,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 22, 91, 167),
                   borderRadius: BorderRadius.circular(12),
@@ -117,13 +138,13 @@ Padding(
                     "Register",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
