@@ -23,9 +23,10 @@ class NotesController {
   }
 
   Stream<List<NoteModel>> getNotes(String userId) {
+    print("UESR ID $userId");
     return notesRef
         .where('userId', isEqualTo: userId)
-        .orderBy('timestamp', descending: true)
+        //.orderBy('timestamp', descending: true)
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => NoteModel.fromDocument(doc)).toList());
