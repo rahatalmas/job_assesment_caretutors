@@ -14,7 +14,7 @@ class UserProvider extends GetxController {
     try {
       final user = await _userController.registerUser(username, email, password);
       if (user != null) {
-        currentUser.value = user;
+        //currentUser.value = user;
         return true;
       } else {
         return false;
