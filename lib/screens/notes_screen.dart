@@ -30,7 +30,7 @@ class _NotesPageState extends State<NotesPage> {
              children: [
               Lottie.asset("assets/animation/notfound.json",height: 350,width: 350),
               RowGap(),
-              Text("No Notes Found")
+              Text("Nothing Found"),
              ]
           
           );
