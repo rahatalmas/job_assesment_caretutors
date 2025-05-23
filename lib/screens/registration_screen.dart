@@ -1,4 +1,5 @@
 import 'package:care_tutor_note_taking_app/providers/user_provider.dart';
+import 'package:care_tutor_note_taking_app/screens/login_screen.dart';
 import 'package:care_tutor_note_taking_app/widgets/row_gap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (success) {
       Get.snackbar("Registration Successful", "Welcome $username!",
           backgroundColor: Colors.green, colorText: Colors.white);
-      Navigator.pop(context);
+      Get.off(() => LoginScreen());
     } else {
       Get.snackbar("Registration Failed", "Something went wrong. Try again.",
           backgroundColor: Colors.redAccent, colorText: Colors.white);
